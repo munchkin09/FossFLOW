@@ -1,13 +1,22 @@
 services:
-  fossflow:
-    image: stnsmith/fossflow:latest
-    pull_policy: always
-    ports:
-      - 80:80
-    environment:
-      - NODE_ENV=production
-      - ENABLE_SERVER_STORAGE=${ENABLE_SERVER_STORAGE:-true}
-      - STORAGE_PATH=/data/diagrams
-      - ENABLE_GIT_BACKUP=${ENABLE_GIT_BACKUP:-false}
-    volumes:
-      - ./diagrams:/data/diagrams
+    fossflow:
+      image: munchkin1983/mammals:local
+      pull_policy: if_not_present
+      expose:
+        - "80"
+      environment:
+        - NODE_ENV=production
+        - ENABLE_SERVER_STORAGE=${ENABLE_SERVER_STORAGE:-true}
+        - STORAGE_PATH=/data/diagrams
+        - ENABLE_GIT_BACKUP=${ENABLE_GIT_BACKUP:-false}
+      volumes:
+        - diagrams-data:/data/diagrams
+      networks:
+        - proxy-net
+
+networks:
+  proxy-net:
+    external: true
+
+volumes:
+  diagrams-data:
