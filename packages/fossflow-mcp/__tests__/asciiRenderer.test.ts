@@ -1,7 +1,6 @@
 /**
  * Tests for ASCII Renderer
  */
-
 import { renderAscii, renderSummary } from '../src/utils/asciiRenderer';
 import { Model, CompactDiagram } from '../src/types';
 
@@ -97,8 +96,8 @@ describe('asciiRenderer', () => {
           connectors: [{
             id: 'conn-1',
             anchors: [
-              { ref: { item: 'node-1', anchor: 'RIGHT' } },
-              { ref: { item: 'node-2', anchor: 'LEFT' } }
+              { id: "", ref: { item: 'node-1', anchor: 'RIGHT' } },
+              { id: "", ref: { item: 'node-2', anchor: 'LEFT' } }
             ]
           }],
           rectangles: [],
@@ -148,8 +147,8 @@ describe('asciiRenderer', () => {
             id: 'conn-1',
             showArrow: true,
             anchors: [
-              { ref: { item: 'node-1', anchor: 'RIGHT' } },
-              { ref: { item: 'node-2', anchor: 'LEFT' } }
+              { id: "", ref: { item: 'node-1', anchor: 'RIGHT' } },
+              { id: "", ref: { item: 'node-2', anchor: 'LEFT' } }
             ]
           }],
           rectangles: [],
@@ -265,15 +264,15 @@ describe('asciiRenderer', () => {
             {
               id: 'conn-1',
               anchors: [
-                { ref: { item: 'node-1', anchor: 'RIGHT' } },
-                { ref: { item: 'node-2', anchor: 'LEFT' } }
+                { id: "", ref: {  item: 'node-1', anchor: 'RIGHT' } },
+                { id: "", ref: { item: 'node-2', anchor: 'LEFT' } }
               ]
             },
             {
               id: 'conn-2',
               anchors: [
-                { ref: { item: 'node-2', anchor: 'RIGHT' } },
-                { ref: { item: 'node-3', anchor: 'LEFT' } }
+                { id: "", ref: { item: 'node-2', anchor: 'RIGHT' } },
+                { id: "", ref: { item: 'node-3', anchor: 'LEFT' } }
               ]
             }
           ],
