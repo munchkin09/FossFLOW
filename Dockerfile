@@ -1,5 +1,5 @@
 # Use the official Node.js runtime as the base image
-FROM node:24 AS build
+FROM node:24.1 AS build
 
 # Set the working directory in the container
 WORKDIR /app
@@ -10,7 +10,7 @@ COPY packages/fossflow-lib/package*.json ./packages/fossflow-lib/
 COPY packages/fossflow-app/package*.json ./packages/fossflow-app/
 
 #Update NPM
-RUN npm install -g npm@11.5.2
+RUN npm install -g npm@11.5.3
 
 # Install dependencies for the entire workspace
 RUN npm install
@@ -22,7 +22,10 @@ COPY . .
 RUN npm run build:lib && npm run build:app
 
 # Use Node with nginx for production
-FROM node:24-alpine
+FROM node:24.1-alpine
+
+# Upgrade all Alpine packages to patch security vulnerabilities
+RUN apk upgrade --no-cache
 
 # Install nginx
 RUN apk add --no-cache nginx
