@@ -1,0 +1,17 @@
+# Ralph Progress Log
+Started: Sat Jan 31 03:53:00 CET 2026
+
+## Codebase Patterns
+- MUI v6: Replace `InputProps` with `slotProps.input` on TextField-based components
+- MUI v6 Grid: Replace `item xs={N}` with `size={N}` prop (Grid2 API)
+- Pre-existing TypeScript test errors can be ignored if unrelated to task
+---
+
+## 2026-01-31 03:55 - MUI-001
+- **What was implemented:** Updated MuiColorInput component to use new MUI v6 API - replaced deprecated `InputProps` prop with `slotProps.input`
+- **Files changed:** packages/fossflow-lib/src/components/ColorSelector/ColorPicker.tsx (line 22)
+- **Learnings for future iterations:**
+  - In MUI v6, `InputProps` is deprecated on TextField-based components - use `slotProps.input` instead
+  - MuiColorInput explicitly omits `InputProps` from its type definition, making the new API required
+  - Pre-existing TypeScript errors in test files should be ignored per PRD
+---

@@ -24,20 +24,21 @@
     "semantic-release": "semantic-release"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/exec": "^7.1.0",
-    "@semantic-release/git": "^10.0.1",
     "@types/node": "^18.19.129",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "conventional-changelog-conventionalcommits": "^9.1.0",
     "cross-env": "^10.1.0",
-    "semantic-release": "^25.0.2",
+
     "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=9.0.0"
+  },
+  "overrides": {
+    "tar": "^7.5.7",
+    "glob": "^11.1.0"
   },
   "dependencies": {
     "dom-to-image-more": "^3.7.1"

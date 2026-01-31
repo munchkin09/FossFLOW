@@ -1,9 +1,9 @@
 services:
     fossflow:
-      image: munchkin1983/mammals:local
+      image: munchkin1983/mammals:dev
       pull_policy: if_not_present
       expose:
-        - "80"
+        - "8080"
       environment:
         - NODE_ENV=production
         - ENABLE_SERVER_STORAGE=${ENABLE_SERVER_STORAGE:-true}
