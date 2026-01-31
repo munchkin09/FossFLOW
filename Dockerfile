@@ -1,5 +1,5 @@
 # Use the official Node.js runtime as the base image
-FROM node:24 AS build
+FROM node:24.1 AS build
 
 # Set the working directory in the container
 WORKDIR /app
@@ -22,7 +22,7 @@ COPY . .
 RUN npm run build:lib && npm run build:app
 
 # Use Node with nginx for production
-FROM node:24-alpine
+FROM node:24.1-alpine
 
 # Install nginx
 RUN apk add --no-cache nginx
