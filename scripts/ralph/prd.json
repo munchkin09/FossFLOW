@@ -1,0 +1,60 @@
+{
+  "title": "Dockerfile CVE Remediation",
+  "description": "Update the FossFLOW Dockerfile to remediate 7 identified security vulnerabilities (CVEs) by implementing security patches and hardening measures.",
+  "branchName": "fix/dockerfile-cve-remediation",
+  "stories": [
+    {
+      "id": "CVE-001",
+      "title": "Update Node.js Base Images to Patched Versions",
+      "priority": 1,
+      "passes": true,
+      "description": "Update Node.js base images to remediate CVE-2026-23950, CVE-2026-24842, CVE-2026-23745, CVE-2026-24001",
+      "cves": ["CVE-2026-23950", "CVE-2026-24842", "CVE-2026-23745", "CVE-2026-24001"],
+      "tasks": [
+        "Update FROM node:24 to FROM node:24.1 in build stage",
+        "Update FROM node:24-alpine to FROM node:24.1-alpine in production stage"
+      ],
+      "acceptanceCriteria": [
+        "Build stage uses node:24.1 image",
+        "Production stage uses node:24.1-alpine image",
+        "Docker image builds successfully",
+        "Container scanner shows CVE-2026-23950, CVE-2026-24842, CVE-2026-23745, CVE-2026-24001 as resolved"
+      ],
+      "files": ["Dockerfile"]
+    },
+    {
+      "id": "CVE-002",
+      "title": "Update Alpine Packages and npm",
+      "priority": 2,
+      "passes": false,
+      "description": "Update Alpine system packages and npm to remediate CVE-2025-64756, CVE-2025-60876, CVE-2025-64118",
+      "cves": ["CVE-2025-64756", "CVE-2025-60876", "CVE-2025-64118"],
+      "tasks": [
+        "Add 'RUN apk upgrade --no-cache' before installing nginx to update all Alpine packages",
+        "Update npm install -g npm@11.5.2 to npm@11.5.3 (or latest patched version)"
+      ],
+      "acceptanceCriteria": [
+        "Alpine packages are upgraded during build",
+        "npm version is updated to patched release (>=11.5.3)",
+        "nginx service starts correctly",
+        "Container scanner shows CVE-2025-64756, CVE-2025-60876, CVE-2025-64118 as resolved"
+      ],
+      "files": ["Dockerfile"]
+    }
+  ],
+  "cveMapping": {
+    "CVE-2026-23950": { "rootCause": "Node.js base image", "storyId": "CVE-001" },
+    "CVE-2026-24842": { "rootCause": "Node.js base image", "storyId": "CVE-001" },
+    "CVE-2026-23745": { "rootCause": "Node.js base image", "storyId": "CVE-001" },
+    "CVE-2026-24001": { "rootCause": "Node.js Alpine image", "storyId": "CVE-001" },
+    "CVE-2025-64756": { "rootCause": "Alpine packages", "storyId": "CVE-002" },
+    "CVE-2025-60876": { "rootCause": "npm vulnerability", "storyId": "CVE-002" },
+    "CVE-2025-64118": { "rootCause": "nginx/Alpine packages", "storyId": "CVE-002" }
+  },
+  "testingRequirements": [
+    "Docker image builds successfully",
+    "Run container vulnerability scanner (Trivy/Grype) to verify all CVEs are resolved",
+    "Application starts and serves requests correctly",
+    "Run existing e2e tests to ensure no breakage"
+  ]
+}

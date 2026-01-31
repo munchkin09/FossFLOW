@@ -1,0 +1,16 @@
+# Ralph Progress Log
+Started: Sat Jan 31 03:33:35 CET 2026
+
+## Codebase Patterns
+- Docker base images use `node:VERSION` for build and `node:VERSION-alpine` for production stage
+- Dockerfile updates don't require npm lint - focus on verifying Dockerfile syntax
+---
+
+## 2026-01-31 02:58 - CVE-001
+- **What was implemented:** Updated Node.js base images from node:24 to node:24.1 and node:24-alpine to node:24.1-alpine to remediate CVE-2026-23950, CVE-2026-24842, CVE-2026-23745, CVE-2026-24001
+- **Files changed:** Dockerfile (lines 2 and 25)
+- **Learnings for future iterations:**
+  - The Dockerfile uses a multi-stage build: build stage (node:24.1) and production stage (node:24.1-alpine)
+  - Pre-existing TypeScript errors exist in fossflow-lib tests unrelated to Dockerfile changes - ignore these
+  - Docker is not available in this environment for build verification - changes verified syntactically
+---
