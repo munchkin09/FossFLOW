@@ -1,0 +1,87 @@
+{
+  "title": "Fix MUI v6 TypeScript Compatibility Errors",
+  "description": "Update components to be compatible with MUI v6 breaking changes in Grid and MuiColorInput APIs.",
+  "branchName": "fix/mui-v6-typescript-errors",
+  "stories": [
+    {
+      "id": "MUI-001",
+      "title": "Fix MuiColorInput InputProps API",
+      "priority": 1,
+      "passes": true,
+      "description": "MuiColorInput no longer accepts InputProps prop in newer versions. Need to use the new API.",
+      "tasks": [
+        "Remove InputProps prop from MuiColorInput component",
+        "Use slotProps.input or equivalent new API to pass input props",
+        "Verify color picker still functions correctly"
+      ],
+      "acceptanceCriteria": [
+        "No TypeScript error TS2322 on ColorPicker.tsx:22",
+        "Color picker input styling works as expected",
+        "npm run typecheck passes for this file"
+      ],
+      "files": ["src/components/ColorSelector/ColorPicker.tsx"]
+    },
+    {
+      "id": "MUI-002",
+      "title": "Migrate Grid Components to MUI v6 Grid2 API",
+      "priority": 1,
+      "passes": false,
+      "description": "MUI v6 Grid component no longer uses 'item' prop and 'xs' shorthand. Need to migrate to Grid2 API using 'size' prop instead.",
+      "tasks": [
+        "Replace Grid item xs={N} with Grid size={N} in IconGrid.tsx",
+        "Replace Grid item xs={N} with Grid size={N} in Icons.tsx",
+        "Replace Grid item xs={N} with Grid size={N} in Header.tsx",
+        "Remove 'item' prop from all Grid components (no longer needed in Grid2)",
+        "Optionally import Grid2 as Grid if using the new component"
+      ],
+      "acceptanceCriteria": [
+        "No TypeScript error TS2769 on IconGrid.tsx:21",
+        "No TypeScript error TS2769 on Icons.tsx:17",
+        "No TypeScript error TS2769 on Header.tsx:15",
+        "Grid layout renders correctly",
+        "npm run typecheck passes for all affected files"
+      ],
+      "files": [
+        "src/components/ItemControls/IconSelectionControls/IconGrid.tsx",
+        "src/components/ItemControls/IconSelectionControls/Icons.tsx",
+        "src/components/ItemControls/components/Header.tsx"
+      ]
+    }
+  ],
+  "errorMapping": {
+    "ColorPicker.tsx:22 TS2322": {
+      "issue": "InputProps prop removed from MuiColorInput",
+      "storyId": "MUI-001"
+    },
+    "IconGrid.tsx:21 TS2769": {
+      "issue": "Grid item/xs props replaced with size in MUI v6",
+      "storyId": "MUI-002"
+    },
+    "Icons.tsx:17 TS2769": {
+      "issue": "Grid item/xs props replaced with size in MUI v6",
+      "storyId": "MUI-002"
+    },
+    "Header.tsx:15 TS2769": {
+      "issue": "Grid item/xs props replaced with size in MUI v6",
+      "storyId": "MUI-002"
+    }
+  },
+  "migrationNotes": {
+    "gridV2Changes": [
+      "Remove 'item' prop - no longer needed",
+      "Replace xs={N} with size={N} or size={{ xs: N }}",
+      "Replace sm={N}, md={N}, etc with size={{ sm: N, md: N }}",
+      "Container prop still works the same way"
+    ],
+    "muiColorInputChanges": [
+      "InputProps replaced with slotProps.input",
+      "Check MuiColorInput docs for current API"
+    ]
+  },
+  "testingRequirements": [
+    "npm run typecheck passes with 0 errors",
+    "Color picker component works correctly",
+    "Icon grid displays icons in correct layout",
+    "All affected UI components render properly"
+  ]
+}
